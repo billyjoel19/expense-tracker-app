@@ -6,7 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { CircleX, Ellipsis } from "lucide-react";
+import { CircleX, Ellipsis, PlusCircle } from "lucide-react";
 
 import { categoryIcon } from "@/lib/categoryIcon";
 import { Category } from "@/generated/prisma";
@@ -69,24 +69,33 @@ function RadioButtonCategory({
                 <span>{category.label}</span>
               </Label>
             ))}
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={() => setSeeMore((prev) => !prev)}
-            className="flex items-center gap-1 border px-2 py-1.5 text-sm font-semibold rounded-full"
-          >
-            {seeMore ? (
-              <>
-                <CircleX className="size-4" />
-                <span>Hide</span>
-              </>
-            ) : (
-              <>
-                <Ellipsis className="size-4" />
-                <span>More</span>
-              </>
-            )}
-          </Button>
+          {categories.length === 0 ? (
+            <Button asChild variant="outline">
+              <a href="/profile">
+                <PlusCircle />
+                Add
+              </a>
+            </Button>
+          ) : categories.length > 4 ? (
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => setSeeMore((prev) => !prev)}
+              className="flex items-center gap-1 border px-2 py-1.5 text-sm font-semibold rounded-full"
+            >
+              {seeMore ? (
+                <>
+                  <CircleX className="size-4" />
+                  <span>Hide</span>
+                </>
+              ) : (
+                <>
+                  <Ellipsis className="size-4" />
+                  <span>More</span>
+                </>
+              )}
+            </Button>
+          ) : null}
         </RadioGroup>
       </ScrollArea>
     </div>
